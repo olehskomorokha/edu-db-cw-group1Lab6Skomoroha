@@ -20,6 +20,7 @@ footer: "ECL 2.0 Licensed | Copyright © [YYYY] [Your Name]"
 <span padding-right:5em></span> **Дейкало Владислав** <a href="https://t.me/IvoBobuI" target="_blank"> Telegram </a> **Пошта:** *vladdejkalo@gmail.com* 
 
 
+
 **Керівник**
 
 *доцент кафедри ОТ ФІОТ, к.т.н., доцент*<span padding-right:5em></span> **Андрій БОЛДАК** 
