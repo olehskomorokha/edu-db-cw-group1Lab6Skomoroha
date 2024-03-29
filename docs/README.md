@@ -18,8 +18,7 @@ footer: "ECL 2.0 Licensed | Copyright © [YYYY] [Your Name]"
 <span padding-right:5em></span> **Вальваков Олег** <a href="https://t.me/SkAlVol" target="_blank"> Telegram </a> **Пошта:** *valvakovoleg@gmail.com* 
 <span padding-right:5em></span> **Антоненко Віолетта** <a href="https://t.me/xivihwa" target="_blank"> Telegram </a> **Пошта:** *antonenko.violetta@lll.kpi.ua* 
 <span padding-right:5em></span> **Дейкало Владислав** <a href="https://t.me/IvoBobuI" target="_blank"> Telegram </a> **Пошта:** *vladdejkalo@gmail.com* 
-
-
+<span padding-right:5em></span> **Скоомроха Олег** <a href="https://t.me/olegskomoroha" target="_blank"> Telegram </a> **Пошта:** *oleg.skomoroha1@gmail.com* 
 
 **Керівник**
 
