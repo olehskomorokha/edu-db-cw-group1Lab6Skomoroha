@@ -95,7 +95,7 @@ module.exports = {
     // editLinkText: 'Ви можете покращити цю сторінку'
 
   },
-  title: 'IO-25 Group1',
+  title: 'IO-25 Система організації та управління опитуваннями експертів',
   description: 'Лабораторні роботи з дисципліни "Бази даних"',
   configureWebpack: {
     resolve: {
