@@ -14,7 +14,7 @@
     usecase "SURVEY.INTERACT_WITH_SURVEY\nВзаємодіяти з\nопитуванням" as SSurvey
     usecase "SURVEY.INTERACT_WITH_SURVEY\\nВзаємодіяти з\nрезультатами опитування" as SResults
     usecase "EXPERT.TAKE_SURVEY\nПройти\nопитування" as ETake
-    usecase "EXPERT.CHANGE_ANSWERS\nПройти\nопитування" as EChange
+    usecase "EXPERT.CHANGE_ANSWERS\nРедагувати\nвідповіді" as EChange
 
 
         Expert -l-|> Client
