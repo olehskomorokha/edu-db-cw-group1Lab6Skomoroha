@@ -1,149 +1,104 @@
 # Модель прецедентів
 
-В цьому файлі необхідно перелічити всі документи, розроблені в проекті та дати посилання на них.
+## Перелік існуючих документів у нашому проекті
 
-*Модель прецедентів повинна містити загальні оглядові діаграми та специфікації прецедентів.*
+1. [Аналіз предметної області](https://daniil-dyachenko.github.io/edu-db-cw-group1/requirements/state-of-the-art.html)
 
+2. [Запити зацікавлених осіб](https://daniil-dyachenko.github.io/edu-db-cw-group1/requirements/stakeholders-needs.html)
 
+3. [Модель прецедентів](https://daniil-dyachenko.github.io/edu-db-cw-group1/use%20cases/)
 
-Вбудовування зображень діаграм здійснюється з використанням сервісу [plantuml.com](https://plantuml.com/). 
+## Загальна схема
 
-В markdown-файлі використовується опис діаграми
-
-```md
-
-<center style="
-    border-radius:4px;
-    border: 1px solid #cfd7e6;
-    box-shadow: 0 1px 3px 0 rgba(89,105,129,.05), 0 1px 1px 0 rgba(0,0,0,.025);
-    padding: 1em;"
->
+<center>
 
 @startuml
 
-    right header
-        <font size=24 color=black>Package: <b>UCD_3.0
-    end header
+    actor Expert
+    actor Client
 
-    title
-        <font size=18 color=black>UC_8. Редагувати конфігурацію порталу
-        <font size=16 color=black>Діаграма прецедентів
-    end title
+    usecase "USER.SIGNUP\nЗареєструватиcь" as USignup
+    usecase "USER.SIGNSN\nАвторизуватись" as USignin
+    usecase "SURVEY.INTERACT_WITH_SURVEY\nВзаємодіяти з\nопитуванням" as SSurvey
+    usecase "SURVEY.INTERACT_WITH_SURVEY\\nВзаємодіяти з\nрезультатами опитування" as SResults
+    usecase "EXPERT.TAKE_SURVEY\nПройти\nопитування" as ETake
+    usecase "EXPERT.CHANGE_ANSWERS\nРедагувати\nвідповіді" as EChange
 
 
-    actor "Користувач" as User #eeeeaa
-    
-    package UCD_1{
-        usecase "<b>UC_1</b>\nПереглянути список \nзвітів" as UC_1 #aaeeaa
-    }
-    
-    usecase "<b>UC_1.1</b>\nЗастосувати фільтр" as UC_1.1
-    usecase "<b>UC_1.2</b>\nПереглянути метадані \nзвіту" as UC_1.2  
-    usecase "<b>UC_1.2.1</b>\nДати оцінку звіту" as UC_1.2.1  
-    usecase "<b>UC_1.2.2</b>\nПереглянути інформацію \nпро авторів звіту" as UC_1.2.2
-    
-    package UCD_1 {
-        usecase "<b>UC_4</b>\nВикликати звіт" as UC_4 #aaeeaa
-    }
-    
-    usecase "<b>UC_1.1.1</b>\n Використати \nпошукові теги" as UC_1.1.1  
-    usecase "<b>UC_1.1.2</b>\n Використати \nрядок пошуку" as UC_1.1.2
-    usecase "<b>UC_1.1.3</b>\n Використати \nавторів" as UC_1.1.3  
-    
-    
-    
-    User -> UC_1
-    UC_1.1 .u.> UC_1 :extends
-    UC_1.2 .u.> UC_1 :extends
-    UC_4 .d.> UC_1.2 :extends
-    UC_1.2 .> UC_1.2 :extends
-    UC_1.2.1 .u.> UC_1.2 :extends
-    UC_1.2.2 .u.> UC_1.2 :extends
-    UC_1 ..> UC_1.2.2 :extends
-    
-    
-    UC_1.1.1 -u-|> UC_1.1
-    UC_1.1.2 -u-|> UC_1.1
-    UC_1.1.3 -u-|> UC_1.1
-    
-    right footer
-        Аналітичний портал. Модель прецедентів.
-        НТУУ КПІ ім.І.Сікорського
-        Киів-2020
-    end footer
+        Expert -l-|> Client
+        Expert -u-> ETake
+        Expert -r-> EChange
+        Client -u-> USignup
+        Client -l-> USignin
+        Client -d-> SSurvey
+        Client -d-> SResults
 
 @enduml
 
-**Діаграма прецедентів**
+**Рис.1** Загальна схема
 
 </center>
-```
 
-яка буде відображена наступним чином
+## Схема кліента
 
-<center style="
-    border-radius:4px;
-    border: 1px solid #cfd7e6;
-    box-shadow: 0 1px 3px 0 rgba(89,105,129,.05), 0 1px 1px 0 rgba(0,0,0,.025);
-    padding: 1em;"
->
+<center>
 
 @startuml
 
-    right header
-        <font size=24 color=black>Package: <b>UCD_3.0
-    end header
+    actor Client as Client
 
-    title
-        <font size=18 color=black>UC_8. Редагувати конфігурацію порталу
-        <font size=16 color=black>Діаграма прецедентів
-    end title
+    usecase "USER.SIGNUP\nЗареєструвати" as SIGNUP
+    usecase "USER.SIGNIN\nАвторизувати"  as SIGNIN
+    usecase "SURVEY.CREATE\nСтворити опитування" as CREATTE
+    usecase "SURVEY.CLOSE\nЗакрити існуюче опитування" as CLOSE
+    usecase "SURVEY.GET_RESULTS\nОтримати результати\n опитування" as GET_RESULT
+    usecase "SURVEY.GET_QUESTION\nОтримати статистику\n відповідей на конкретне питання" as GET_QUESTION
+    usecase "SURVEY.ADD_QUESTION\nДодати питання\n до опитування" as ADD_QUESTION
+    usecase "SURVEY.DELETE_QUESTION\nВидалити питання\n з опитування" as DELETE_QUESTION
+    usecase "SURVEY.EXPORT\nЕкспортувати результати\n опитування" as EXPORT
+    usecase "USER.SHARE\nНадати доступ\n до опитування" as SHARE
+    usecase "Взаємодія з обліковим записом" as UInteraction
+    usecase "Редагувати опитування" as SEdit
+    usecase "Взаємодія з результатами" as SResults
 
-
-    actor "Користувач" as User #eeeeaa
-    
-    package UCD_1{
-        usecase "<b>UC_1</b>\nПереглянути список \nзвітів" as UC_1 #aaeeaa
-    }
-    
-    usecase "<b>UC_1.1</b>\nЗастосувати фільтр" as UC_1.1
-    usecase "<b>UC_1.2</b>\nПереглянути метадані \nзвіту" as UC_1.2  
-    usecase "<b>UC_1.2.1</b>\nДати оцінку звіту" as UC_1.2.1  
-    usecase "<b>UC_1.2.2</b>\nПереглянути інформацію \nпро авторів звіту" as UC_1.2.2
-    
-    package UCD_1 {
-        usecase "<b>UC_4</b>\nВикликати звіт" as UC_4 #aaeeaa
-    }
-    
-    usecase "<b>UC_1.1.1</b>\n Використати \nпошукові теги" as UC_1.1.1  
-    usecase "<b>UC_1.1.2</b>\n Використати \nрядок пошуку" as UC_1.1.2
-    usecase "<b>UC_1.1.3</b>\n Використати \nавторів" as UC_1.1.3  
-    
-    
-    
-    User -> UC_1
-    UC_1.1 .u.> UC_1 :extends
-    UC_1.2 .u.> UC_1 :extends
-    UC_4 .d.> UC_1.2 :extends
-    UC_1.2 .> UC_1.2 :extends
-    UC_1.2.1 .u.> UC_1.2 :extends
-    UC_1.2.2 .u.> UC_1.2 :extends
-    UC_1 ..> UC_1.2.2 :extends
-    
-    
-    UC_1.1.1 -u-|> UC_1.1
-    UC_1.1.2 -u-|> UC_1.1
-    UC_1.1.3 -u-|> UC_1.1
-    
-    right footer
-        Аналітичний портал. Модель прецедентів.
-        НТУУ КПІ ім.І.Сікорського
-        Киів-2020
-    end footer
+    Client -r-> UInteraction
+    UInteraction -r-> SIGNUP
+    UInteraction -d-> SIGNIN
+    Client -d-> SEdit
+    Client -l-> SResults
+    Client -u-> CREATTE
+    Client -u-> CLOSE
+    Client -u-> SHARE
+    Client -u-> GET_RESULT
+    SEdit <-d. DELETE_QUESTION : extends
+    SEdit <-d. ADD_QUESTION : extends
+    SResults <-u. GET_QUESTION : extends
+    SResults <-d. EXPORT : extends
 
 @enduml
 
-**Діаграма прецедентів**
+**Рис.2** Схема клієнта
 
 </center>
+
+## Схема експерта
+
+<center>
+
+@startuml
+
+    actor "Експерт" as Expert
+
+    usecase "EXPERT.TAKE_SURVEY\nПройти опитування" as TakeSurvey
+    usecase "EXPERT.CHANGE_ANSWERS\nЗмінити відповіді пройденого опитування" as ChangeAnswers
+
+    Expert -d-> TakeSurvey
+    Expert -d-> ChangeAnswers
+
+@enduml
+
+**Рис.3** Схема Експерта
+
+</center>
+
 
