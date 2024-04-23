@@ -440,13 +440,6 @@
 >
 
 @startuml
-    |Експерт| 
-    start; 
-    :надсилає запит для зміни відповідей в опитуванні;
-    note right #ffaaaa 
-    <b> Може виникнути 
-    <b> SurveyNotAvailableException 
-    end note
 
     |Система|
     :опрацьовує запит;
@@ -483,15 +476,17 @@
 <center style="
     border-radius:4px;
     border: 1px solid #cfd7e6;
-@@ -21,65 +21,44 @@
+    box-shadow: 0 1px 3px 0 rgba(89,105,129,.05), 0 1px 1px 0 rgba(0,0,0,.025);
+    padding: 1em;"
+>
 
 @startuml
-    |Клієнт|
+     |Клієнт|
     start;
     :обирає опитування;
-        |Система|
+       |Система|
     :надає варіанти експорту;
-   
+    
     |Клієнт|
     :обирає варіант експорту;
     :відправляє запит;
@@ -503,10 +498,10 @@
     <b> DataFormatRequiredException
     end note
     :генерує файл з результатами опитування \n у вибраному форматі;
-      |Клієнт|
+       |Клієнт|
     :отримує готовий файл;
     stop;
-    
+
 @enduml
 </center>
 
@@ -523,7 +518,10 @@
 
 <center style="
     border-radius:4px;
-@@ -90,60 +69,63 @@
+    border: 1px solid #cfd7e6;
+    box-shadow: 0 1px 3px 0 rgba(89,105,129,.05), 0 1px 1px 0 rgba(0,0,0,.025);
+    padding: 1em;"
+>
 
 @startuml
    |Клієнт| 
