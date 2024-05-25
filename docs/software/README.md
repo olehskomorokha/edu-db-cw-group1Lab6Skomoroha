@@ -2,346 +2,484 @@
 
 ## SQL-скрипт для створення на початкового наповнення бази даних
 
-    -- MySQL Workbench Forward Engineering
-    
-    SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-    SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-    SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-    
-    -- -----------------------------------------------------
-    -- Schema quiz
-    -- -----------------------------------------------------
-    DROP SCHEMA IF EXISTS `quiz` ;
-    
-    -- -----------------------------------------------------
-    -- Schema quiz
-    -- -----------------------------------------------------
-    CREATE SCHEMA IF NOT EXISTS `quiz` DEFAULT CHARACTER SET utf8 ;
-    USE `quiz` ;
-    
-    -- -----------------------------------------------------
-    -- Table `quiz`.`Role`
-    -- -----------------------------------------------------
-    DROP TABLE IF EXISTS `quiz`.`Role` ;
-    
-    CREATE TABLE IF NOT EXISTS `quiz`.`Role` (
-    `id` INT NOT NULL,
-    `name` VARCHAR(32) NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
-    
-    
-    -- -----------------------------------------------------
-    -- Table `quiz`.`Permission`
-    -- -----------------------------------------------------
-    DROP TABLE IF EXISTS `quiz`.`Permission` ;
-    
-    CREATE TABLE IF NOT EXISTS `quiz`.`Permission` (
-    `id` INT NOT NULL,
-    `name` VARCHAR(32) NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
-    
-    
-    -- -----------------------------------------------------
-    -- Table `quiz`.`Grant`
-    -- -----------------------------------------------------
-    DROP TABLE IF EXISTS `quiz`.`Grant` ;
-    
-    CREATE TABLE IF NOT EXISTS `quiz`.`Grant` (
-    `id` INT NOT NULL,
-    `appointed` DATE NULL,
-    `Role_id` INT NOT NULL,
-    `Permission_id` INT NOT NULL,
-    PRIMARY KEY (`id`, `Role_id`, `Permission_id`),
-    INDEX `fk_Grant_Role1_idx` (`Role_id` ASC) VISIBLE,
-    INDEX `fk_Grant_Permission1_idx` (`Permission_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Grant_Role1`
-    FOREIGN KEY (`Role_id`)
-    REFERENCES `quiz`.`Role` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    CONSTRAINT `fk_Grant_Permission1`
-    FOREIGN KEY (`Permission_id`)
-    REFERENCES `quiz`.`Permission` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-    
-    
-    -- -----------------------------------------------------
-    -- Table `quiz`.`User`
-    -- -----------------------------------------------------
-    DROP TABLE IF EXISTS `quiz`.`User` ;
-    
-    CREATE TABLE IF NOT EXISTS `quiz`.`User` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `first_name` VARCHAR(45) NULL,
-    `last_name` VARCHAR(45) NULL,
-    `nick_name` VARCHAR(45) NULL,
-    `email` VARCHAR(128) NULL,
-    `password` VARCHAR(64) NULL,
-    `Role_id` INT NOT NULL,
-    PRIMARY KEY (`id`, `Role_id`),
-    INDEX `fk_User_Role1_idx` (`Role_id` ASC) VISIBLE,
-    UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-    UNIQUE INDEX `nick_name_UNIQUE` (`nick_name` ASC) VISIBLE,
-    CONSTRAINT `fk_User_Role1`
-    FOREIGN KEY (`Role_id`)
-    REFERENCES `quiz`.`Role` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-    
-    
-    -- -----------------------------------------------------
-    -- Table `quiz`.`Survey`
-    -- -----------------------------------------------------
-    DROP TABLE IF EXISTS `quiz`.`Survey` ;
-    
-    CREATE TABLE IF NOT EXISTS `quiz`.`Survey` (
-    `id` INT NOT NULL,
-    `title` VARCHAR(45) NULL,
-    `description` LONGTEXT NULL,
-    `created` DATE NULL,
-    `User_id` INT NOT NULL,
-    `User_Role_id` INT NOT NULL,
-    PRIMARY KEY (`id`, `User_id`, `User_Role_id`),
-    INDEX `fk_Survey_User1_idx` (`User_id` ASC, `User_Role_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Survey_User1`
-    FOREIGN KEY (`User_id` , `User_Role_id`)
-    REFERENCES `quiz`.`User` (`id` , `Role_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-    
-    
-    -- -----------------------------------------------------
-    -- Table `quiz`.`Question`
-    -- -----------------------------------------------------
-    DROP TABLE IF EXISTS `quiz`.`Question` ;
-    
-    CREATE TABLE IF NOT EXISTS `quiz`.`Question` (
-    `id` INT NOT NULL,
-    `text` LONGTEXT NULL,
-    `type` VARCHAR(32) NULL,
-    `Survey_id` INT NOT NULL,
-    `Survey_User_id` INT NOT NULL,
-    `Survey_User_Role_id` INT NOT NULL,
-    PRIMARY KEY (`id`, `Survey_id`, `Survey_User_id`, `Survey_User_Role_id`),
-    INDEX `fk_Question_Survey1_idx` (`Survey_id` ASC, `Survey_User_id` ASC, `Survey_User_Role_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Question_Survey1`
-    FOREIGN KEY (`Survey_id` , `Survey_User_id` , `Survey_User_Role_id`)
-    REFERENCES `quiz`.`Survey` (`id` , `User_id` , `User_Role_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-    
-    
-    -- -----------------------------------------------------
-    -- Table `quiz`.`Answer`
-    -- -----------------------------------------------------
-    DROP TABLE IF EXISTS `quiz`.`Answer` ;
-    
-    CREATE TABLE IF NOT EXISTS `quiz`.`Answer` (
-    `id` INT NOT NULL,
-    `text` LONGTEXT NULL,
-    `User_id` INT NOT NULL,
-    `User_Role_id` INT NOT NULL,
-    `Question_id` INT NOT NULL,
-    `Question_Survey_id` INT NOT NULL,
-    `Question_Survey_User_id` INT NOT NULL,
-    `Question_Survey_User_Role_id` INT NOT NULL,
-    PRIMARY KEY (`id`, `User_id`, `User_Role_id`, `Question_id`, `Question_Survey_id`, `Question_Survey_User_id`, `Question_Survey_User_Role_id`),
-    INDEX `fk_Answer_User1_idx` (`User_id` ASC, `User_Role_id` ASC) VISIBLE,
-    INDEX `fk_Answer_Question1_idx` (`Question_id` ASC, `Question_Survey_id` ASC, `Question_Survey_User_id` ASC, `Question_Survey_User_Role_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Answer_User1`
-    FOREIGN KEY (`User_id` , `User_Role_id`)
-    REFERENCES `quiz`.`User` (`id` , `Role_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    CONSTRAINT `fk_Answer_Question1`
-    FOREIGN KEY (`Question_id` , `Question_Survey_id` , `Question_Survey_User_id` , `Question_Survey_User_Role_id`)
-    REFERENCES `quiz`.`Question` (`id` , `Survey_id` , `Survey_User_id` , `Survey_User_Role_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-    
-    
-    -- -----------------------------------------------------
-    -- Table `quiz`.`State`
-    -- -----------------------------------------------------
-    DROP TABLE IF EXISTS `quiz`.`State` ;
-    
-    CREATE TABLE IF NOT EXISTS `quiz`.`State` (
-    `id` INT NOT NULL,
-    `name` VARCHAR(32) NULL,
-    PRIMARY KEY (`id`))
-    ENGINE = InnoDB;
-    
-    
-    -- -----------------------------------------------------
-    -- Table `quiz`.`Action`
-    -- -----------------------------------------------------
-    DROP TABLE IF EXISTS `quiz`.`Action` ;
-    
-    CREATE TABLE IF NOT EXISTS `quiz`.`Action` (
-    `id` INT NOT NULL,
-    `date` DATE NULL,
-    `Survey_id` INT NOT NULL,
-    `Survey_User_id` INT NOT NULL,
-    `Survey_User_Role_id` INT NOT NULL,
-    `Role_id` INT NOT NULL,
-    `State_id` INT NOT NULL,
-    PRIMARY KEY (`id`, `Survey_id`, `Survey_User_id`, `Survey_User_Role_id`, `Role_id`, `State_id`),
-    INDEX `fk_Action_Survey1_idx` (`Survey_id` ASC, `Survey_User_id` ASC, `Survey_User_Role_id` ASC) VISIBLE,
-    INDEX `fk_Action_Role1_idx` (`Role_id` ASC) VISIBLE,
-    INDEX `fk_Action_State1_idx` (`State_id` ASC) VISIBLE,
-    CONSTRAINT `fk_Action_Survey1`
-    FOREIGN KEY (`Survey_id` , `Survey_User_id` , `Survey_User_Role_id`)
-    REFERENCES `quiz`.`Survey` (`id` , `User_id` , `User_Role_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    CONSTRAINT `fk_Action_Role1`
-    FOREIGN KEY (`Role_id`)
-    REFERENCES `quiz`.`Role` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-    CONSTRAINT `fk_Action_State1`
-    FOREIGN KEY (`State_id`)
-    REFERENCES `quiz`.`State` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-    ENGINE = InnoDB;
-    
-    
-    SET SQL_MODE=@OLD_SQL_MODE;
-    SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-    SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+```sql
+	--Create Database
+		GO
+		/****** Object:  Database [SurveyDb]    Script Date: 23.05.2024 17:30:45 ******/
+		CREATE DATABASE [SurveyDb]
+		 CONTAINMENT = NONE
+		 ON  PRIMARY 
+		( NAME = N'SurveyDb', FILENAME = N'C:\Users\olegs\SurveyDb.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+		 LOG ON 
+		( NAME = N'SurveyDb_log', FILENAME = N'C:\Users\olegs\SurveyDb_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+		 WITH CATALOG_COLLATION = DATABASE_DEFAULT
 
+		 USE [SurveyDb]
+
+
+	--Action
+			USE [SurveyDb]
+		/****** Object:  Table [dbo].[Actions]    Script Date: 23.05.2024 17:33:52 ******/
+		SET ANSI_NULLS ON
+		SET QUOTED_IDENTIFIER ON
+		CREATE TABLE [dbo].[Actions](
+			[Id] [int] IDENTITY(1,1) NOT NULL,
+			[date] [datetime2](7) NOT NULL,
+			[SurveyId] [int] NOT NULL,
+			[StateId] [int] NOT NULL,
+			[RoleId] [int] NOT NULL,
+		 CONSTRAINT [PK_Actions] PRIMARY KEY CLUSTERED 
+		(
+			[Id] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY]
+		ALTER TABLE [dbo].[Actions]  WITH CHECK ADD  CONSTRAINT [FK_Actions_Roles_RoleId] FOREIGN KEY([RoleId])
+		REFERENCES [dbo].[Roles] ([Id])
+		ON DELETE CASCADE
+		ALTER TABLE [dbo].[Actions] CHECK CONSTRAINT [FK_Actions_Roles_RoleId]
+
+		ALTER TABLE [dbo].[Actions]  WITH CHECK ADD  CONSTRAINT [FK_Actions_States_StateId] FOREIGN KEY([StateId])
+		REFERENCES [dbo].[States] ([Id])
+		ON DELETE CASCADE
+		ALTER TABLE [dbo].[Actions] CHECK CONSTRAINT [FK_Actions_States_StateId]
+		ALTER TABLE [dbo].[Actions]  WITH CHECK ADD  CONSTRAINT [FK_Actions_Surveys_SurveyId] FOREIGN KEY([SurveyId])
+		REFERENCES [dbo].[Surveys] ([Id])
+		ON DELETE CASCADE
+		ALTER TABLE [dbo].[Actions] CHECK CONSTRAINT [FK_Actions_Surveys_SurveyId]
+		GO
+
+	--Answers
+			USE [SurveyDb]
+		/****** Object:  Table [dbo].[Answers]    Script Date: 23.05.2024 17:34:43 ******/
+		SET ANSI_NULLS ON
+		SET QUOTED_IDENTIFIER ON
+		CREATE TABLE [dbo].[Answers](
+			[Id] [int] IDENTITY(1,1) NOT NULL,
+			[text] [nvarchar](max) NOT NULL,
+			[UserId] [int] NOT NULL,
+			[QuestionId] [int] NOT NULL,
+		 CONSTRAINT [PK_Answers] PRIMARY KEY CLUSTERED 
+		(
+			[Id] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		ALTER TABLE [dbo].[Answers]  WITH CHECK ADD  CONSTRAINT [FK_Answers_Question_QuestionId] FOREIGN KEY([QuestionId])
+		REFERENCES [dbo].[Question] ([Id])
+		ON DELETE CASCADE
+		GO
+		ALTER TABLE [dbo].[Answers] CHECK CONSTRAINT [FK_Answers_Question_QuestionId]
+
+		ALTER TABLE [dbo].[Answers]  WITH CHECK ADD  CONSTRAINT [FK_Answers_Users_UserId] FOREIGN KEY([UserId])
+		REFERENCES [dbo].[Users] ([Id])
+		ON DELETE CASCADE
+
+		ALTER TABLE [dbo].[Answers] CHECK CONSTRAINT [FK_Answers_Users_UserId]
+
+	--Grants
+			USE [SurveyDb]
+		/****** Object:  Table [dbo].[Grants]    Script Date: 23.05.2024 17:35:27 ******/
+		SET ANSI_NULLS ON
+		SET QUOTED_IDENTIFIER ON
+
+		CREATE TABLE [dbo].[Grants](
+			[Id] [int] IDENTITY(1,1) NOT NULL,
+			[appointed] [datetime2](7) NOT NULL,
+			[RoleId] [int] NOT NULL,
+			[PermissionId] [int] NOT NULL,
+		 CONSTRAINT [PK_Grants] PRIMARY KEY CLUSTERED 
+		(
+			[Id] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY]
+
+		ALTER TABLE [dbo].[Grants]  WITH CHECK ADD  CONSTRAINT [FK_Grants_Permissions_PermissionId] FOREIGN KEY([PermissionId])
+		REFERENCES [dbo].[Permissions] ([Id])
+		ON DELETE CASCADE
+
+		ALTER TABLE [dbo].[Grants] CHECK CONSTRAINT [FK_Grants_Permissions_PermissionId]
+
+		ALTER TABLE [dbo].[Grants]  WITH CHECK ADD  CONSTRAINT [FK_Grants_Roles_RoleId] FOREIGN KEY([RoleId])
+		REFERENCES [dbo].[Roles] ([Id])
+		ON DELETE CASCADE
+
+		ALTER TABLE [dbo].[Grants] CHECK CONSTRAINT [FK_Grants_Roles_RoleId]
+	
+
+	--Permissions
+			USE [SurveyDb]
+		/****** Object:  Table [dbo].[Permissions]    Script Date: 23.05.2024 17:39:54 ******/
+		SET ANSI_NULLS ON
+
+		SET QUOTED_IDENTIFIER ON
+
+		CREATE TABLE [dbo].[Permissions](
+			[Id] [int] IDENTITY(1,1) NOT NULL,
+			[name] [nvarchar](max) NOT NULL,
+		 CONSTRAINT [PK_Permissions] PRIMARY KEY CLUSTERED 
+		(
+			[Id] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+	--Questions
+			USE [SurveyDb]
+
+		/****** Object:  Table [dbo].[Question]    Script Date: 23.05.2024 17:41:18 ******/
+		SET ANSI_NULLS ON
+
+		SET QUOTED_IDENTIFIER ON
+
+		CREATE TABLE [dbo].[Question](
+			[Id] [int] IDENTITY(1,1) NOT NULL,
+			[text] [nvarchar](max) NOT NULL,
+			[type] [nvarchar](max) NOT NULL,
+			[SurveyId] [int] NULL,
+		 CONSTRAINT [PK_Question] PRIMARY KEY CLUSTERED 
+		(
+			[Id] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+		ALTER TABLE [dbo].[Question]  WITH CHECK ADD  CONSTRAINT [FK_Question_Surveys_SurveyId] FOREIGN KEY([SurveyId])
+		REFERENCES [dbo].[Surveys] ([Id])
+		ALTER TABLE [dbo].[Question] CHECK CONSTRAINT [FK_Question_Surveys_SurveyId]
+	--Roles
+			USE [SurveyDb]
+		/****** Object:  Table [dbo].[Roles]    Script Date: 23.05.2024 17:41:43 ******/
+		SET ANSI_NULLS ON
+		SET QUOTED_IDENTIFIER ON
+		CREATE TABLE [dbo].[Roles](
+			[Id] [int] IDENTITY(1,1) NOT NULL,
+			[Name] [nvarchar](max) NOT NULL,
+		 CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+		(
+			[Id] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		GO
+
+
+	--States
+			USE [SurveyDb]
+		/****** Object:  Table [dbo].[States]    Script Date: 23.05.2024 17:42:11 ******/
+		SET ANSI_NULLS ON
+		SET QUOTED_IDENTIFIER ON
+		CREATE TABLE [dbo].[States](
+			[Id] [int] IDENTITY(1,1) NOT NULL,
+			[name] [nvarchar](max) NOT NULL,
+		 CONSTRAINT [PK_States] PRIMARY KEY CLUSTERED 
+		(
+			[Id] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		GO
+
+	--Surveys
+				USE [SurveyDb]
+		/****** Object:  Table [dbo].[Surveys]    Script Date: 23.05.2024 17:42:26 ******/
+		SET ANSI_NULLS ON
+
+		SET QUOTED_IDENTIFIER ON
+		CREATE TABLE [dbo].[Surveys](
+			[Id] [int] IDENTITY(1,1) NOT NULL,
+			[title] [nvarchar](max) NOT NULL,
+			[description] [nvarchar](max) NOT NULL,
+			[created] [datetime2](7) NOT NULL,
+			[UserId] [int] NOT NULL,
+		 CONSTRAINT [PK_Surveys] PRIMARY KEY CLUSTERED 
+		(
+			[Id] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		ALTER TABLE [dbo].[Surveys]  WITH CHECK ADD  CONSTRAINT [FK_Surveys_Users_UserId] FOREIGN KEY([UserId])
+		REFERENCES [dbo].[Users] ([Id])
+		ON DELETE CASCADE
+		ALTER TABLE [dbo].[Surveys] CHECK CONSTRAINT [FK_Surveys_Users_UserId]
+		GO
+	--Users
+			USE [SurveyDb]
+		/****** Object:  Table [dbo].[Users]    Script Date: 23.05.2024 17:42:44 ******/
+		SET ANSI_NULLS ON
+		GO
+		SET QUOTED_IDENTIFIER ON
+		CREATE TABLE [dbo].[Users](
+			[Id] [int] IDENTITY(1,1) NOT NULL,
+			[first_name] [nvarchar](max) NOT NULL,
+			[last_name] [nvarchar](max) NOT NULL,
+			[nick_name] [nvarchar](max) NOT NULL,
+			[email] [nvarchar](max) NOT NULL,
+			[password] [nvarchar](max) NOT NULL,
+			[RoleId] [int] NULL,
+		 CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+		(
+			[Id] ASC
+		)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+		) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+		ALTER TABLE [dbo].[Users]  WITH CHECK ADD  CONSTRAINT [FK_Users_Roles_RoleId] FOREIGN KEY([RoleId])
+		REFERENCES [dbo].[Roles] ([Id])
+		ALTER TABLE [dbo].[Users] CHECK CONSTRAINT [FK_Users_Roles_RoleId]
+		GO
+```
 ## RESTfull сервіс для управління даними
 
-RESTfull сервіс для управління таблиці User у базі даних 'quiz' створеної в MySQL. Цей застосунок був створений за допомогою
-фреймворку Flask на мові Python.
-RESTfull сервіс представляє собою базовий CRUD застосунок, тобто "Набор джентельмена", Create, Read, Update і Delete.
+RESTfull API для управління даними таблиці Survey створеної в MsSql Server 
+було створено за допомогою фреймворку entity framework на мові c#. 
+RESTfull API представляє собою CRUD застосунок. 
 
-### Файл app.py
+### Файл .gradle з встановленими залежностями
 
-#### Імпорти:
+```
+	<Project Sdk="Microsoft.NET.Sdk.Web">
 
-    from flask import Flask, request, jsonify
-    from flask_restful import Resource, Api
-    from flask_sqlalchemy import SQLAlchemy
-    
-    app = Flask(__name__)
-    api = Api(app)
+	  <PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	  </PropertyGroup>
 
-#### Конфігурація бази даних MySQL:
+	  <ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.5">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	  </ItemGroup>
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:D18132004_ua@localhost/quiz'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    db = SQLAlchemy(app)
+	</Project>
 
-#### Створення моделі для User і Role:
+```
+# Реалізація доступу до бази даних
 
-    class RoleModel(db.Model):
-    __tablename__ = 'Role'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(45))
+### Підключення бази даних
+```
+	{
+	  "ConnectionStrings": {
+		"DeafaultConnection": "server=(localdb)\\MSSQLLocalDB;Database=SurveyDb;Integrated Security=True"
+	  },
+	  "Logging": {
+		"LogLevel": {
+		  "Default": "Information",
+		  "Microsoft.AspNetCore": "Warning"
+		}
+	  },
+	  "AllowedHosts": "*"
+	}
+```
 
-    users = db.relationship('UserModel', backref='role')
+### Основний клас для запуску API
+```
+	using Microsoft.EntityFrameworkCore;
+	using SurveyWebApp.Data;
 
-#### Модель User:
-    class UserModel(db.Model):
-    __tablename__ = 'User'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    first_name = db.Column(db.String(45))
-    last_name = db.Column(db.String(45))
-    nick_name = db.Column(db.String(45), unique=True)
-    email = db.Column(db.String(128), unique=True)
-    password = db.Column(db.String(64))
-    role_id = db.Column(db.Integer, db.ForeignKey('Role.id'), nullable=False)
+	var builder = WebApplication.CreateBuilder(args);
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "first_name": self.first_name,
-            "last_name": self.last_name,
-            "nick_name": self.nick_name,
-            "email": self.email,
-            "password": self.password,
-            "role_id": self.role_id
+	// Add services to the container.
+	var optionsBuilder = builder.Services.AddDbContext<StoreDbContext>(options =>
+		options.UseSqlServer(builder.Configuration.GetConnectionString("DeafaultConnection")));
+
+	builder.Services.AddControllers();
+	// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+	builder.Services.AddEndpointsApiExplorer();
+	builder.Services.AddSwaggerGen();
+
+	var app = builder.Build();
+
+	// Configure the HTTP request pipeline.
+	if (app.Environment.IsDevelopment())
+	{
+		app.UseSwagger();
+		app.UseSwaggerUI();
+	}
+
+	app.UseHttpsRedirection();
+
+	app.UseAuthorization();
+
+	app.MapControllers();
+
+	app.Run();
+```
+### Клас сутності для взаємодії з БД
+```
+   public class StoreDbContext : DbContext
+    {
+        public StoreDbContext(DbContextOptions<StoreDbContext> options)
+             : base(options)
+        {
+
+        }
+        
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Action> Actions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Question> Question { get; set; }
+        public DbSet<Grant> Grants { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<Survey> Surveys { get; set;}
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Question>()
+                .HasOne(q => q.Survey)
+                .WithMany(s => s.Question)
+                .HasForeignKey(q => q.SurveyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+    }
+```
+
+### Контролер для роботи з опитуваннями
+
+```
+  namespace SurveyWebApp.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SurveyController : ControllerBase
+    {
+        private StoreDbContext _context;
+        public SurveyController(StoreDbContext context)
+        {
+            _context = context;
         }
 
-#### Ініціалізація бази даних:
+        // GET: api/Surveys
+        [HttpGet("GetAllSurveys")]
+        public async Task<ActionResult<IEnumerable<SurveyInfo>>> GetSurveys()
+        {
+            var surveys = await _context.Surveys.ToListAsync();
+            var surveyInfos = surveys.Select(SurveyMapper.MapToSurveyInfo).ToList();
+            return Ok(surveyInfos);
+        }
 
-    with app.app_context():
-    db.create_all()
-    
-    class User(Resource):
-    def get(self, user_id=None):
-    if user_id is None:
-    users = UserModel.query.all()
-    return [user.to_dict() for user in users]
-    else:
-    user = UserModel.query.get(user_id)
-    if user:
-    return user.to_dict()
-    return {'message': 'User not found'}, 404
+        // GET: api/Surveys/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<SurveyInfo>> GetSurvey(int id)
+        {
+            var survey = await _context.Surveys.FirstOrDefaultAsync(s => s.Id == id);
 
-    def post(self):
-        data = request.get_json()
-        existing_user_email = UserModel.query.filter_by(email=data.get('email')).first()
-        existing_user_nick = UserModel.query.filter_by(nick_name=data.get('nick_name')).first()
-        if existing_user_email is not None:
-            return {'message': 'User with this email already exists'}, 400
-        if existing_user_nick is not None:
-            return {'message': 'User with this nickname already exists'}, 400
-        new_user = UserModel(
-            first_name=data.get('first_name'),
-            last_name=data.get('last_name'),
-            nick_name=data.get('nick_name'),
-            email=data.get('email'),
-            password=data.get('password'),
-            role_id=data.get('role_id')
-        )
-        db.session.add(new_user)
-        db.session.commit()
-        return {'message': 'User created successfully', 'user': new_user.to_dict()}, 201
+            if (survey == null)
+            {
+                return NotFound();
+            }
 
-    def put(self, user_id):
-        user = UserModel.query.get(user_id)
-        if user:
-            data = request.get_json()
-            user.first_name = data.get('first_name', user.first_name)
-            user.last_name = data.get('last_name', user.last_name)
-            user.nick_name = data.get('nick_name', user.nick_name)
-            user.email = data.get('email', user.email)
-            user.password = data.get('password', user.password)
-            user.role_id = data.get('role_id', user.role_id)
-            db.session.commit()
-            return {'message': 'User updated successfully', 'user': user.to_dict()}
-        return {'message': 'User not found'}, 404
+            return Ok(survey);
+        }
 
-    def delete(self, user_id):
-        user = UserModel.query.get(user_id)
-        if user:
-            db.session.delete(user)
-            db.session.commit()
-            return {'message': 'User deleted successfully'}, 200
-        return {'message': 'User not found'}, 404
+        // POST: api/Surveys/AddSurvey
+        [HttpPost("AddSurvey")]
+        public async Task<IActionResult> AddSurvey(AddSurveyModel surveyInfo, int userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if(user == null)
+            {
+                return BadRequest("non registered person cant create Survey");
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-    api.add_resource(User, '/users', '/users/<int:user_id>')
-    
-    @app.route('/')
-    def index():
-    return "Welcome to the User API"
-    
-    if __name__ == '__main__':
-    app.run(debug=True)
+            var survey = new Survey{
+                title = surveyInfo.title,
+                description = surveyInfo.description,
+                created = DateTime.Now,
+                UserId = userId,
+            };
 
+            _context.Surveys.Add(survey);
+            await _context.SaveChangesAsync();
 
+            return Ok(surveyInfo);
+        }
 
+        // PUT: api/Surveys/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSurvey(int id, UpdateSurvey survey)
+        {
+            // Знаходимо об'єкт Survey за його Id
+            var _survey = await _context.Surveys.FindAsync(id);
 
+            if (_survey == null)
+            {
+                return BadRequest("Survey not found");
+            }
 
+            // Оновлюємо властивості об'єкта Survey згідно з даними з SurveyInfo
+            _survey.title = survey.title;
+            _survey.description = survey.description;
+
+            try
+            {
+                // Зберігаємо зміни до бази даних
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SurveyExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // DELETE: api/Surveys/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSurvey(int id)
+        {
+            var survey = await _context.Surveys.FindAsync(id);
+            if (survey == null)
+            {
+                return NotFound();
+            }
+
+            _context.Surveys.Remove(survey);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool SurveyExists(int id)
+        {
+            return _context.Surveys.Any(e => e.Id == id);
+        }
+    }
+}
+
+```
+
+### Сервіс для роботи з моделями
+```
+	    public class AddSurveyModel
+    {
+        public string title { get; set; }
+        public string description { get; set; }
+        public DateTime created { get; set; }
+    }
+	    public class SurveyInfo
+    {
+        public int Id { get; set; } 
+        public string title { get; set; }
+        public string description { get; set; }
+        public DateTime created { get; set; }
+        public int UserId { get; set; }
+    }
+	    public class UpdateSurvey
+    {
+        public string title { get; set; }
+        public string description { get; set; }
+    }
+```
 
