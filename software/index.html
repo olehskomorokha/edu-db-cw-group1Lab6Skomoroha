@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Реалізація інформаційного та програмного забезпечення | IO-25 Система організації та управління опитуваннями експертів</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/edu-db-cw-group1Lab6Skomoroha/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" content="Лабораторні роботи з дисципліни &quot;Бази даних&quot;">
+    
+    <link rel="preload" href="/edu-db-cw-group1Lab6Skomoroha/assets/css/0.styles.0bb20dfc.css" as="style"><link rel="preload" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/app.c47b2c8c.js" as="script"><link rel="preload" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/2.9db98cfc.js" as="script"><link rel="preload" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/1.aeaab699.js" as="script"><link rel="preload" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/38.9edbd51d.js" as="script"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/10.ec5d05f5.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/13.e94752d3.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/14.a44b088b.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/15.9b45e2d3.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/16.3fba0f2e.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/17.6f857b07.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/18.3687cd53.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/19.e97a1789.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/20.a6554482.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/21.4e1cc404.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/22.8c2f48ed.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/23.6332bedd.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/24.07780c0c.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/25.2346a27f.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/26.64a380ff.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/27.236aa98d.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/28.49e53bb3.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/29.796c6e28.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/3.90c9f46a.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/30.e446915b.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/31.e76f794d.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/32.141232a1.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/33.1b1f1b96.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/34.63cd6c44.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/35.aef7d27c.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/36.2b73953d.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/37.9f919ab0.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/39.5e1afedc.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/4.f7ed40d9.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/40.5a5e1937.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/41.7613dad4.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/5.60ccbbf3.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/6.8dd89140.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/7.4ef13e57.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/8.5c6a69f4.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/9.370a7bc7.js"><link rel="prefetch" href="/edu-db-cw-group1Lab6Skomoroha/assets/js/vendors~docsearch.69518f58.js">
+    <link rel="stylesheet" href="/edu-db-cw-group1Lab6Skomoroha/assets/css/0.styles.0bb20dfc.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/edu-db-cw-group1Lab6Skomoroha/" class="home-link router-link-active"><!----> <span class="site-name">IO-25 Система організації та управління опитуваннями експертів</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/edu-db-cw-group1Lab6Skomoroha/" class="nav-link">
+  Початок
+</a></div> <a href="https://github.com/olehskomorokha/edu-db-cw-group1Lab6Skomoroha" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/edu-db-cw-group1Lab6Skomoroha/" class="nav-link">
+  Початок
+</a></div> <a href="https://github.com/olehskomorokha/edu-db-cw-group1Lab6Skomoroha" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/edu-db-cw-group1Lab6Skomoroha/intro/" class="sidebar-link">Вступ</a></li><li><section class="sidebar-group collapsable depth-0"><a href="/edu-db-cw-group1Lab6Skomoroha/requirements/" class="sidebar-heading clickable"><span>Розроблення загальних вимог до системи</span> <span class="arrow right"></span></a> <!----></section></li><li><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/" class="sidebar-link">Розроблення вимог до функціональности системи</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#перелік-існуючих-документів-у-нашому-проекті" class="sidebar-link">Перелік існуючих документів у нашому проекті</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#загальна-схема" class="sidebar-link">Загальна схема</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#схема-кліента" class="sidebar-link">Схема кліента</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#схема-експерта" class="sidebar-link">Схема експерта</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#сценаріі-використання" class="sidebar-link">Сценарії використання</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#user-signup" class="sidebar-link">USER.SIGNUP</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#user-signin" class="sidebar-link">USER.SIGNIN</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#survey-create" class="sidebar-link">SURVEY.CREATE</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#survey-close" class="sidebar-link">SURVEY.CLOSE</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#survey-get-results" class="sidebar-link">SURVEY.GET_RESULTS</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#survey-add-question" class="sidebar-link">SURVEY.ADD_QUESTION</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#survey-delete-question" class="sidebar-link">SURVEY.DELETE_QUESTION</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#expert-take-survey" class="sidebar-link">EXPERT.TAKE_SURVEY</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#expert-change-answers" class="sidebar-link">EXPERT.CHANGE_ANSWERS</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#survey-export" class="sidebar-link">SURVEY.EXPORT</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#survey-share" class="sidebar-link">SURVEY.SHARE</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/use%20cases/#survey-get-question" class="sidebar-link">SURVEY.GET_QUESTION</a></li></ul></li></ul></li><li><a href="/edu-db-cw-group1Lab6Skomoroha/design/" class="sidebar-link">Проектування інформаційного забезпечення</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/design/#модель-бізнес-об-єктів" class="sidebar-link">Модель бізнес об'єктів</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/design/#er-модель" class="sidebar-link">ER-модель</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/design/#реляціина-схема" class="sidebar-link">Реляційна схема</a></li></ul></li><li><a href="/edu-db-cw-group1Lab6Skomoroha/software/" aria-current="page" class="active sidebar-link">Реалізація інформаційного та програмного забезпечення</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/software/#sql-скрипт-для-створення-на-початкового-наповнення-бази-даних" class="sidebar-link">SQL-скрипт для створення на початкового наповнення бази даних</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/software/#restfull-сервіс-для-управління-даними" class="sidebar-link">RESTfull сервіс для управління даними</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/software/#фаил-gradle-з-встановленими-залежностями" class="sidebar-link">Файл .gradle з встановленими залежностями</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/software/#підключення-бази-даних" class="sidebar-link">Підключення бази даних</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/software/#основнии-клас-для-запуску-api" class="sidebar-link">Основний клас для запуску API</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/software/#клас-сутності-для-взаємодіі-з-бд" class="sidebar-link">Клас сутності для взаємодії з БД</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/software/#контролер-для-роботи-з-опитуваннями" class="sidebar-link">Контролер для роботи з опитуваннями</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/software/#сервіс-для-роботи-з-моделями" class="sidebar-link">Сервіс для роботи з моделями</a></li></ul></li></ul></li><li><a href="/edu-db-cw-group1Lab6Skomoroha/test/" class="sidebar-link">Тестування працездатності системи</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/test/#засоби-тестування" class="sidebar-link">Засоби тестування</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/test/#отримання-данних-по-всім-survey" class="sidebar-link">Отримання данних по всім Survey</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/test/#отримання-інформаціі-по-id-survey" class="sidebar-link">Отримання інформації по id Survey</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/test/#створення-нового-survey" class="sidebar-link">Створення нового Survey</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/test/#видалення-опитування" class="sidebar-link">Видалення опитування</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/test/#оновлення-опитування" class="sidebar-link">Оновлення Опитування</a></li><li class="sidebar-sub-header"><a href="/edu-db-cw-group1Lab6Skomoroha/test/#вміст-таблиці-survey-у-базі-даних-після-виконання-усіх-операціи" class="sidebar-link">Вміст таблиці 'Survey' у базі даних після виконання усіх операцій</a></li></ul></li></ul></li><li><a href="/edu-db-cw-group1Lab6Skomoroha/conclusion/" class="sidebar-link">Висновки</a><ul class="sidebar-sub-headers"></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="реалізація-інформаціиного-та-програмного-забезпечення"><a href="#реалізація-інформаціиного-та-програмного-забезпечення" class="header-anchor">#</a> Реалізація інформаційного та програмного забезпечення</h1> <h2 id="sql-скрипт-для-створення-на-початкового-наповнення-бази-даних"><a href="#sql-скрипт-для-створення-на-початкового-наповнення-бази-даних" class="header-anchor">#</a> SQL-скрипт для створення на початкового наповнення бази даних</h2> <div class="language-sql extra-class"><pre class="language-sql"><code>	<span class="token comment">--Create Database</span>
+		GO
+		<span class="token comment">/****** Object:  Database [SurveyDb]    Script Date: 23.05.2024 17:30:45 ******/</span>
+		<span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+		 CONTAINMENT <span class="token operator">=</span> NONE
+		 <span class="token keyword">ON</span>  <span class="token keyword">PRIMARY</span> 
+		<span class="token punctuation">(</span> NAME <span class="token operator">=</span> N<span class="token string">'SurveyDb'</span><span class="token punctuation">,</span> FILENAME <span class="token operator">=</span> N<span class="token string">'C:\Users\olegs\SurveyDb.mdf'</span> <span class="token punctuation">,</span> SIZE <span class="token operator">=</span> <span class="token number">8192</span>KB <span class="token punctuation">,</span> MAXSIZE <span class="token operator">=</span> UNLIMITED<span class="token punctuation">,</span> FILEGROWTH <span class="token operator">=</span> <span class="token number">65536</span>KB <span class="token punctuation">)</span>
+		 LOG <span class="token keyword">ON</span> 
+		<span class="token punctuation">(</span> NAME <span class="token operator">=</span> N<span class="token string">'SurveyDb_log'</span><span class="token punctuation">,</span> FILENAME <span class="token operator">=</span> N<span class="token string">'C:\Users\olegs\SurveyDb_log.ldf'</span> <span class="token punctuation">,</span> SIZE <span class="token operator">=</span> <span class="token number">8192</span>KB <span class="token punctuation">,</span> MAXSIZE <span class="token operator">=</span> <span class="token number">2048</span>GB <span class="token punctuation">,</span> FILEGROWTH <span class="token operator">=</span> <span class="token number">65536</span>KB <span class="token punctuation">)</span>
+		 <span class="token keyword">WITH</span> CATALOG_COLLATION <span class="token operator">=</span> DATABASE_DEFAULT
+
+		 <span class="token keyword">USE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+
+
+	<span class="token comment">--Action</span>
+			<span class="token keyword">USE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+		<span class="token comment">/****** Object:  Table [dbo].[Actions]    Script Date: 23.05.2024 17:33:52 ******/</span>
+		<span class="token keyword">SET</span> ANSI_NULLS <span class="token keyword">ON</span>
+		<span class="token keyword">SET</span> QUOTED_IDENTIFIER <span class="token keyword">ON</span>
+		<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Actions<span class="token punctuation">]</span><span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token keyword">IDENTITY</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span><span class="token keyword">date</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>datetime2<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>SurveyId<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>StateId<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>RoleId<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+		 <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>PK_Actions<span class="token punctuation">]</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">CLUSTERED</span> 
+		<span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token keyword">ASC</span>
+		<span class="token punctuation">)</span><span class="token keyword">WITH</span> <span class="token punctuation">(</span>PAD_INDEX <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> STATISTICS_NORECOMPUTE <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> IGNORE_DUP_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> ALLOW_ROW_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> ALLOW_PAGE_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> OPTIMIZE_FOR_SEQUENTIAL_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Actions<span class="token punctuation">]</span>  <span class="token keyword">WITH</span> <span class="token keyword">CHECK</span> <span class="token keyword">ADD</span>  <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Actions_Roles_RoleId<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span><span class="token punctuation">[</span>RoleId<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">REFERENCES</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Roles<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">CASCADE</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Actions<span class="token punctuation">]</span> <span class="token keyword">CHECK</span> <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Actions_Roles_RoleId<span class="token punctuation">]</span>
+
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Actions<span class="token punctuation">]</span>  <span class="token keyword">WITH</span> <span class="token keyword">CHECK</span> <span class="token keyword">ADD</span>  <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Actions_States_StateId<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span><span class="token punctuation">[</span>StateId<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">REFERENCES</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>States<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">CASCADE</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Actions<span class="token punctuation">]</span> <span class="token keyword">CHECK</span> <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Actions_States_StateId<span class="token punctuation">]</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Actions<span class="token punctuation">]</span>  <span class="token keyword">WITH</span> <span class="token keyword">CHECK</span> <span class="token keyword">ADD</span>  <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Actions_Surveys_SurveyId<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span><span class="token punctuation">[</span>SurveyId<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">REFERENCES</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Surveys<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">CASCADE</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Actions<span class="token punctuation">]</span> <span class="token keyword">CHECK</span> <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Actions_Surveys_SurveyId<span class="token punctuation">]</span>
+		GO
+
+	<span class="token comment">--Answers</span>
+			<span class="token keyword">USE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+		<span class="token comment">/****** Object:  Table [dbo].[Answers]    Script Date: 23.05.2024 17:34:43 ******/</span>
+		<span class="token keyword">SET</span> ANSI_NULLS <span class="token keyword">ON</span>
+		<span class="token keyword">SET</span> QUOTED_IDENTIFIER <span class="token keyword">ON</span>
+		<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Answers<span class="token punctuation">]</span><span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token keyword">IDENTITY</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span><span class="token keyword">text</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>UserId<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>QuestionId<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+		 <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>PK_Answers<span class="token punctuation">]</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">CLUSTERED</span> 
+		<span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token keyword">ASC</span>
+		<span class="token punctuation">)</span><span class="token keyword">WITH</span> <span class="token punctuation">(</span>PAD_INDEX <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> STATISTICS_NORECOMPUTE <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> IGNORE_DUP_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> ALLOW_ROW_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> ALLOW_PAGE_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> OPTIMIZE_FOR_SEQUENTIAL_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span> TEXTIMAGE_ON <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Answers<span class="token punctuation">]</span>  <span class="token keyword">WITH</span> <span class="token keyword">CHECK</span> <span class="token keyword">ADD</span>  <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Answers_Question_QuestionId<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span><span class="token punctuation">[</span>QuestionId<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">REFERENCES</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Question<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">CASCADE</span>
+		GO
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Answers<span class="token punctuation">]</span> <span class="token keyword">CHECK</span> <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Answers_Question_QuestionId<span class="token punctuation">]</span>
+
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Answers<span class="token punctuation">]</span>  <span class="token keyword">WITH</span> <span class="token keyword">CHECK</span> <span class="token keyword">ADD</span>  <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Answers_Users_UserId<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span><span class="token punctuation">[</span>UserId<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">REFERENCES</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Users<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">CASCADE</span>
+
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Answers<span class="token punctuation">]</span> <span class="token keyword">CHECK</span> <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Answers_Users_UserId<span class="token punctuation">]</span>
+
+	<span class="token comment">--Grants</span>
+			<span class="token keyword">USE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+		<span class="token comment">/****** Object:  Table [dbo].[Grants]    Script Date: 23.05.2024 17:35:27 ******/</span>
+		<span class="token keyword">SET</span> ANSI_NULLS <span class="token keyword">ON</span>
+		<span class="token keyword">SET</span> QUOTED_IDENTIFIER <span class="token keyword">ON</span>
+
+		<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Grants<span class="token punctuation">]</span><span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token keyword">IDENTITY</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>appointed<span class="token punctuation">]</span> <span class="token punctuation">[</span>datetime2<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>RoleId<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>PermissionId<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+		 <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>PK_Grants<span class="token punctuation">]</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">CLUSTERED</span> 
+		<span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token keyword">ASC</span>
+		<span class="token punctuation">)</span><span class="token keyword">WITH</span> <span class="token punctuation">(</span>PAD_INDEX <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> STATISTICS_NORECOMPUTE <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> IGNORE_DUP_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> ALLOW_ROW_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> ALLOW_PAGE_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> OPTIMIZE_FOR_SEQUENTIAL_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Grants<span class="token punctuation">]</span>  <span class="token keyword">WITH</span> <span class="token keyword">CHECK</span> <span class="token keyword">ADD</span>  <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Grants_Permissions_PermissionId<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span><span class="token punctuation">[</span>PermissionId<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">REFERENCES</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Permissions<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">CASCADE</span>
+
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Grants<span class="token punctuation">]</span> <span class="token keyword">CHECK</span> <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Grants_Permissions_PermissionId<span class="token punctuation">]</span>
+
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Grants<span class="token punctuation">]</span>  <span class="token keyword">WITH</span> <span class="token keyword">CHECK</span> <span class="token keyword">ADD</span>  <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Grants_Roles_RoleId<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span><span class="token punctuation">[</span>RoleId<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">REFERENCES</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Roles<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">CASCADE</span>
+
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Grants<span class="token punctuation">]</span> <span class="token keyword">CHECK</span> <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Grants_Roles_RoleId<span class="token punctuation">]</span>
+	
+
+	<span class="token comment">--Permissions</span>
+			<span class="token keyword">USE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+		<span class="token comment">/****** Object:  Table [dbo].[Permissions]    Script Date: 23.05.2024 17:39:54 ******/</span>
+		<span class="token keyword">SET</span> ANSI_NULLS <span class="token keyword">ON</span>
+
+		<span class="token keyword">SET</span> QUOTED_IDENTIFIER <span class="token keyword">ON</span>
+
+		<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Permissions<span class="token punctuation">]</span><span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token keyword">IDENTITY</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+		 <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>PK_Permissions<span class="token punctuation">]</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">CLUSTERED</span> 
+		<span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token keyword">ASC</span>
+		<span class="token punctuation">)</span><span class="token keyword">WITH</span> <span class="token punctuation">(</span>PAD_INDEX <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> STATISTICS_NORECOMPUTE <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> IGNORE_DUP_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> ALLOW_ROW_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> ALLOW_PAGE_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> OPTIMIZE_FOR_SEQUENTIAL_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span> TEXTIMAGE_ON <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+
+	<span class="token comment">--Questions</span>
+			<span class="token keyword">USE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+
+		<span class="token comment">/****** Object:  Table [dbo].[Question]    Script Date: 23.05.2024 17:41:18 ******/</span>
+		<span class="token keyword">SET</span> ANSI_NULLS <span class="token keyword">ON</span>
+
+		<span class="token keyword">SET</span> QUOTED_IDENTIFIER <span class="token keyword">ON</span>
+
+		<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Question<span class="token punctuation">]</span><span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token keyword">IDENTITY</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span><span class="token keyword">text</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span><span class="token keyword">type</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>SurveyId<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+		 <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>PK_Question<span class="token punctuation">]</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">CLUSTERED</span> 
+		<span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token keyword">ASC</span>
+		<span class="token punctuation">)</span><span class="token keyword">WITH</span> <span class="token punctuation">(</span>PAD_INDEX <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> STATISTICS_NORECOMPUTE <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> IGNORE_DUP_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> ALLOW_ROW_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> ALLOW_PAGE_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> OPTIMIZE_FOR_SEQUENTIAL_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span> TEXTIMAGE_ON <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Question<span class="token punctuation">]</span>  <span class="token keyword">WITH</span> <span class="token keyword">CHECK</span> <span class="token keyword">ADD</span>  <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Question_Surveys_SurveyId<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span><span class="token punctuation">[</span>SurveyId<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">REFERENCES</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Surveys<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Question<span class="token punctuation">]</span> <span class="token keyword">CHECK</span> <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Question_Surveys_SurveyId<span class="token punctuation">]</span>
+	<span class="token comment">--Roles</span>
+			<span class="token keyword">USE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+		<span class="token comment">/****** Object:  Table [dbo].[Roles]    Script Date: 23.05.2024 17:41:43 ******/</span>
+		<span class="token keyword">SET</span> ANSI_NULLS <span class="token keyword">ON</span>
+		<span class="token keyword">SET</span> QUOTED_IDENTIFIER <span class="token keyword">ON</span>
+		<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Roles<span class="token punctuation">]</span><span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token keyword">IDENTITY</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>Name<span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+		 <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>PK_Roles<span class="token punctuation">]</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">CLUSTERED</span> 
+		<span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token keyword">ASC</span>
+		<span class="token punctuation">)</span><span class="token keyword">WITH</span> <span class="token punctuation">(</span>PAD_INDEX <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> STATISTICS_NORECOMPUTE <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> IGNORE_DUP_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> ALLOW_ROW_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> ALLOW_PAGE_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> OPTIMIZE_FOR_SEQUENTIAL_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span> TEXTIMAGE_ON <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		GO
+
+
+	<span class="token comment">--States</span>
+			<span class="token keyword">USE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+		<span class="token comment">/****** Object:  Table [dbo].[States]    Script Date: 23.05.2024 17:42:11 ******/</span>
+		<span class="token keyword">SET</span> ANSI_NULLS <span class="token keyword">ON</span>
+		<span class="token keyword">SET</span> QUOTED_IDENTIFIER <span class="token keyword">ON</span>
+		<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>States<span class="token punctuation">]</span><span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token keyword">IDENTITY</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+		 <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>PK_States<span class="token punctuation">]</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">CLUSTERED</span> 
+		<span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token keyword">ASC</span>
+		<span class="token punctuation">)</span><span class="token keyword">WITH</span> <span class="token punctuation">(</span>PAD_INDEX <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> STATISTICS_NORECOMPUTE <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> IGNORE_DUP_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> ALLOW_ROW_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> ALLOW_PAGE_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> OPTIMIZE_FOR_SEQUENTIAL_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span> TEXTIMAGE_ON <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		GO
+
+	<span class="token comment">--Surveys</span>
+				<span class="token keyword">USE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+		<span class="token comment">/****** Object:  Table [dbo].[Surveys]    Script Date: 23.05.2024 17:42:26 ******/</span>
+		<span class="token keyword">SET</span> ANSI_NULLS <span class="token keyword">ON</span>
+
+		<span class="token keyword">SET</span> QUOTED_IDENTIFIER <span class="token keyword">ON</span>
+		<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Surveys<span class="token punctuation">]</span><span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token keyword">IDENTITY</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>title<span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>description<span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>created<span class="token punctuation">]</span> <span class="token punctuation">[</span>datetime2<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>UserId<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+		 <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>PK_Surveys<span class="token punctuation">]</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">CLUSTERED</span> 
+		<span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token keyword">ASC</span>
+		<span class="token punctuation">)</span><span class="token keyword">WITH</span> <span class="token punctuation">(</span>PAD_INDEX <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> STATISTICS_NORECOMPUTE <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> IGNORE_DUP_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> ALLOW_ROW_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> ALLOW_PAGE_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> OPTIMIZE_FOR_SEQUENTIAL_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span> TEXTIMAGE_ON <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Surveys<span class="token punctuation">]</span>  <span class="token keyword">WITH</span> <span class="token keyword">CHECK</span> <span class="token keyword">ADD</span>  <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Surveys_Users_UserId<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span><span class="token punctuation">[</span>UserId<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">REFERENCES</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Users<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">CASCADE</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Surveys<span class="token punctuation">]</span> <span class="token keyword">CHECK</span> <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Surveys_Users_UserId<span class="token punctuation">]</span>
+		GO
+	<span class="token comment">--Users</span>
+			<span class="token keyword">USE</span> <span class="token punctuation">[</span>SurveyDb<span class="token punctuation">]</span>
+		<span class="token comment">/****** Object:  Table [dbo].[Users]    Script Date: 23.05.2024 17:42:44 ******/</span>
+		<span class="token keyword">SET</span> ANSI_NULLS <span class="token keyword">ON</span>
+		GO
+		<span class="token keyword">SET</span> QUOTED_IDENTIFIER <span class="token keyword">ON</span>
+		<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Users<span class="token punctuation">]</span><span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token keyword">IDENTITY</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>first_name<span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>last_name<span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>nick_name<span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>email<span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>password<span class="token punctuation">]</span> <span class="token punctuation">[</span>nvarchar<span class="token punctuation">]</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+			<span class="token punctuation">[</span>RoleId<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">int</span><span class="token punctuation">]</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+		 <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>PK_Users<span class="token punctuation">]</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token keyword">CLUSTERED</span> 
+		<span class="token punctuation">(</span>
+			<span class="token punctuation">[</span>Id<span class="token punctuation">]</span> <span class="token keyword">ASC</span>
+		<span class="token punctuation">)</span><span class="token keyword">WITH</span> <span class="token punctuation">(</span>PAD_INDEX <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> STATISTICS_NORECOMPUTE <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> IGNORE_DUP_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">,</span> ALLOW_ROW_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> ALLOW_PAGE_LOCKS <span class="token operator">=</span> <span class="token keyword">ON</span><span class="token punctuation">,</span> OPTIMIZE_FOR_SEQUENTIAL_KEY <span class="token operator">=</span> <span class="token keyword">OFF</span><span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token punctuation">)</span> <span class="token keyword">ON</span> <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span> TEXTIMAGE_ON <span class="token punctuation">[</span><span class="token keyword">PRIMARY</span><span class="token punctuation">]</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Users<span class="token punctuation">]</span>  <span class="token keyword">WITH</span> <span class="token keyword">CHECK</span> <span class="token keyword">ADD</span>  <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Users_Roles_RoleId<span class="token punctuation">]</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span><span class="token punctuation">[</span>RoleId<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">REFERENCES</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Roles<span class="token punctuation">]</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>Id<span class="token punctuation">]</span><span class="token punctuation">)</span>
+		<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>dbo<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token punctuation">[</span>Users<span class="token punctuation">]</span> <span class="token keyword">CHECK</span> <span class="token keyword">CONSTRAINT</span> <span class="token punctuation">[</span>FK_Users_Roles_RoleId<span class="token punctuation">]</span>
+		GO
+</code></pre></div><h2 id="restfull-сервіс-для-управління-даними"><a href="#restfull-сервіс-для-управління-даними" class="header-anchor">#</a> RESTfull сервіс для управління даними</h2> <p>RESTfull API для управління даними таблиці Survey створеної в MsSql Server
+було створено за допомогою фреймворку entity framework на мові c#.
+RESTfull API представляє собою CRUD застосунок.</p> <h3 id="фаил-gradle-з-встановленими-залежностями"><a href="#фаил-gradle-з-встановленими-залежностями" class="header-anchor">#</a> Файл .gradle з встановленими залежностями</h3> <div class="language- extra-class"><pre class="language-text"><code>	&lt;Project Sdk=&quot;Microsoft.NET.Sdk.Web&quot;&gt;
+
+	  &lt;PropertyGroup&gt;
+		&lt;TargetFramework&gt;net8.0&lt;/TargetFramework&gt;
+		&lt;Nullable&gt;enable&lt;/Nullable&gt;
+		&lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+	  &lt;/PropertyGroup&gt;
+
+	  &lt;ItemGroup&gt;
+		&lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.SqlServer&quot; Version=&quot;8.0.5&quot; /&gt;
+		&lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.Tools&quot; Version=&quot;8.0.5&quot;&gt;
+		  &lt;PrivateAssets&gt;all&lt;/PrivateAssets&gt;
+		  &lt;IncludeAssets&gt;runtime; build; native; contentfiles; analyzers; buildtransitive&lt;/IncludeAssets&gt;
+		&lt;/PackageReference&gt;
+		&lt;PackageReference Include=&quot;Swashbuckle.AspNetCore&quot; Version=&quot;6.4.0&quot; /&gt;
+	  &lt;/ItemGroup&gt;
+
+	&lt;/Project&gt;
+
+</code></pre></div><h1 id="реалізація-доступу-до-бази-даних"><a href="#реалізація-доступу-до-бази-даних" class="header-anchor">#</a> Реалізація доступу до бази даних</h1> <h3 id="підключення-бази-даних"><a href="#підключення-бази-даних" class="header-anchor">#</a> Підключення бази даних</h3> <div class="language- extra-class"><pre class="language-text"><code>	{
+	  &quot;ConnectionStrings&quot;: {
+		&quot;DeafaultConnection&quot;: &quot;server=(localdb)\\MSSQLLocalDB;Database=SurveyDb;Integrated Security=True&quot;
+	  },
+	  &quot;Logging&quot;: {
+		&quot;LogLevel&quot;: {
+		  &quot;Default&quot;: &quot;Information&quot;,
+		  &quot;Microsoft.AspNetCore&quot;: &quot;Warning&quot;
+		}
+	  },
+	  &quot;AllowedHosts&quot;: &quot;*&quot;
+	}
+</code></pre></div><h3 id="основнии-клас-для-запуску-api"><a href="#основнии-клас-для-запуску-api" class="header-anchor">#</a> Основний клас для запуску API</h3> <div class="language- extra-class"><pre class="language-text"><code>	using Microsoft.EntityFrameworkCore;
+	using SurveyWebApp.Data;
+
+	var builder = WebApplication.CreateBuilder(args);
+
+	// Add services to the container.
+	var optionsBuilder = builder.Services.AddDbContext&lt;StoreDbContext&gt;(options =&gt;
+		options.UseSqlServer(builder.Configuration.GetConnectionString(&quot;DeafaultConnection&quot;)));
+
+	builder.Services.AddControllers();
+	// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+	builder.Services.AddEndpointsApiExplorer();
+	builder.Services.AddSwaggerGen();
+
+	var app = builder.Build();
+
+	// Configure the HTTP request pipeline.
+	if (app.Environment.IsDevelopment())
+	{
+		app.UseSwagger();
+		app.UseSwaggerUI();
+	}
+
+	app.UseHttpsRedirection();
+
+	app.UseAuthorization();
+
+	app.MapControllers();
+
+	app.Run();
+</code></pre></div><h3 id="клас-сутності-для-взаємодіі-з-бд"><a href="#клас-сутності-для-взаємодіі-з-бд" class="header-anchor">#</a> Клас сутності для взаємодії з БД</h3> <div class="language- extra-class"><pre class="language-text"><code>   public class StoreDbContext : DbContext
+    {
+        public StoreDbContext(DbContextOptions&lt;StoreDbContext&gt; options)
+             : base(options)
+        {
+
+        }
+        
+        public DbSet&lt;User&gt; Users { get; set; }
+        public DbSet&lt;Role&gt; Roles { get; set; }
+        public DbSet&lt;Action&gt; Actions { get; set; }
+        public DbSet&lt;Answer&gt; Answers { get; set; }
+        public DbSet&lt;Question&gt; Question { get; set; }
+        public DbSet&lt;Grant&gt; Grants { get; set; }
+        public DbSet&lt;Permission&gt; Permissions { get; set; }
+        public DbSet&lt;State&gt; States { get; set; }
+        public DbSet&lt;Survey&gt; Surveys { get; set;}
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity&lt;Question&gt;()
+                .HasOne(q =&gt; q.Survey)
+                .WithMany(s =&gt; s.Question)
+                .HasForeignKey(q =&gt; q.SurveyId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+    }
+</code></pre></div><h3 id="контролер-для-роботи-з-опитуваннями"><a href="#контролер-для-роботи-з-опитуваннями" class="header-anchor">#</a> Контролер для роботи з опитуваннями</h3> <div class="language- extra-class"><pre class="language-text"><code>  namespace SurveyWebApp.Controllers
+{
+    [Route(&quot;api/[controller]&quot;)]
+    [ApiController]
+    public class SurveyController : ControllerBase
+    {
+        private StoreDbContext _context;
+        public SurveyController(StoreDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Surveys
+        [HttpGet(&quot;GetAllSurveys&quot;)]
+        public async Task&lt;ActionResult&lt;IEnumerable&lt;SurveyInfo&gt;&gt;&gt; GetSurveys()
+        {
+            var surveys = await _context.Surveys.ToListAsync();
+            var surveyInfos = surveys.Select(SurveyMapper.MapToSurveyInfo).ToList();
+            return Ok(surveyInfos);
+        }
+
+        // GET: api/Surveys/5
+        [HttpGet(&quot;{id}&quot;)]
+        public async Task&lt;ActionResult&lt;SurveyInfo&gt;&gt; GetSurvey(int id)
+        {
+            var survey = await _context.Surveys.FirstOrDefaultAsync(s =&gt; s.Id == id);
+
+            if (survey == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(survey);
+        }
+
+        // POST: api/Surveys/AddSurvey
+        [HttpPost(&quot;AddSurvey&quot;)]
+        public async Task&lt;IActionResult&gt; AddSurvey(AddSurveyModel surveyInfo, int userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u =&gt; u.Id == userId);
+            if(user == null)
+            {
+                return BadRequest(&quot;non registered person cant create Survey&quot;);
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var survey = new Survey{
+                title = surveyInfo.title,
+                description = surveyInfo.description,
+                created = DateTime.Now,
+                UserId = userId,
+            };
+
+            _context.Surveys.Add(survey);
+            await _context.SaveChangesAsync();
+
+            return Ok(surveyInfo);
+        }
+
+        // PUT: api/Surveys/5
+        [HttpPut(&quot;{id}&quot;)]
+        public async Task&lt;IActionResult&gt; UpdateSurvey(int id, UpdateSurvey survey)
+        {
+            // Знаходимо об'єкт Survey за його Id
+            var _survey = await _context.Surveys.FindAsync(id);
+
+            if (_survey == null)
+            {
+                return BadRequest(&quot;Survey not found&quot;);
+            }
+
+            // Оновлюємо властивості об'єкта Survey згідно з даними з SurveyInfo
+            _survey.title = survey.title;
+            _survey.description = survey.description;
+
+            try
+            {
+                // Зберігаємо зміни до бази даних
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SurveyExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // DELETE: api/Surveys/5
+        [HttpDelete(&quot;{id}&quot;)]
+        public async Task&lt;IActionResult&gt; DeleteSurvey(int id)
+        {
+            var survey = await _context.Surveys.FindAsync(id);
+            if (survey == null)
+            {
+                return NotFound();
+            }
+
+            _context.Surveys.Remove(survey);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool SurveyExists(int id)
+        {
+            return _context.Surveys.Any(e =&gt; e.Id == id);
+        }
+    }
+}
+
+</code></pre></div><h3 id="сервіс-для-роботи-з-моделями"><a href="#сервіс-для-роботи-з-моделями" class="header-anchor">#</a> Сервіс для роботи з моделями</h3> <div class="language- extra-class"><pre class="language-text"><code>	    public class AddSurveyModel
+    {
+        public string title { get; set; }
+        public string description { get; set; }
+        public DateTime created { get; set; }
+    }
+	    public class SurveyInfo
+    {
+        public int Id { get; set; } 
+        public string title { get; set; }
+        public string description { get; set; }
+        public DateTime created { get; set; }
+        public int UserId { get; set; }
+    }
+	    public class UpdateSurvey
+    {
+        public string title { get; set; }
+        public string description { get; set; }
+    }
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Останнє оновлення:</span> <span class="time">5/26/2024, 12:14:46 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/edu-db-cw-group1Lab6Skomoroha/design/" class="prev">
+        Проектування інформаційного забезпечення
+      </a></span> <span class="next"><a href="/edu-db-cw-group1Lab6Skomoroha/test/">
+        Тестування працездатності системи
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/edu-db-cw-group1Lab6Skomoroha/assets/js/app.c47b2c8c.js" defer></script><script src="/edu-db-cw-group1Lab6Skomoroha/assets/js/2.9db98cfc.js" defer></script><script src="/edu-db-cw-group1Lab6Skomoroha/assets/js/1.aeaab699.js" defer></script><script src="/edu-db-cw-group1Lab6Skomoroha/assets/js/38.9edbd51d.js" defer></script>
+  </body>
+</html>
