@@ -1,0 +1,109 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\olegs\\source\\repos\\edu-db-cw-group1SkomorohaLab6\\src\\js\\SurveyWebApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{26D472B9-3EF8-40DB-8F5D-BF3862ECCB8B}|SurveyWebApp\\SurveyWebApp.csproj|c:\\users\\olegs\\source\\repos\\edu-db-cw-group1skomorohalab6\\src\\js\\surveywebapp\\surveywebapp\\controllers\\surveycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26D472B9-3EF8-40DB-8F5D-BF3862ECCB8B}|SurveyWebApp\\SurveyWebApp.csproj|solutionrelative:surveywebapp\\controllers\\surveycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26D472B9-3EF8-40DB-8F5D-BF3862ECCB8B}|SurveyWebApp\\SurveyWebApp.csproj|C:\\Users\\olegs\\source\\repos\\edu-db-cw-group1SkomorohaLab6\\src\\js\\SurveyWebApp\\surveywebapp\\entities\\survey.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26D472B9-3EF8-40DB-8F5D-BF3862ECCB8B}|SurveyWebApp\\SurveyWebApp.csproj|solutionrelative:surveywebapp\\entities\\survey.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{26D472B9-3EF8-40DB-8F5D-BF3862ECCB8B}|SurveyWebApp\\SurveyWebApp.csproj|C:\\Users\\olegs\\source\\repos\\edu-db-cw-group1SkomorohaLab6\\src\\js\\SurveyWebApp\\surveywebapp\\models\\addsurveymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{26D472B9-3EF8-40DB-8F5D-BF3862ECCB8B}|SurveyWebApp\\SurveyWebApp.csproj|solutionrelative:surveywebapp\\models\\addsurveymodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:907418858:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:916273320:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Survey.cs",
+              "DocumentMoniker": "C:\\Users\\olegs\\source\\repos\\edu-db-cw-group1SkomorohaLab6\\src\\js\\SurveyWebApp\\SurveyWebApp\\Entities\\Survey.cs",
+              "RelativeDocumentMoniker": "SurveyWebApp\\Entities\\Survey.cs",
+              "ToolTip": "C:\\Users\\olegs\\source\\repos\\edu-db-cw-group1SkomorohaLab6\\src\\js\\SurveyWebApp\\SurveyWebApp\\Entities\\Survey.cs",
+              "RelativeToolTip": "SurveyWebApp\\Entities\\Survey.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T14:11:19.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SurveyController.cs",
+              "DocumentMoniker": "C:\\Users\\olegs\\source\\repos\\edu-db-cw-group1SkomorohaLab6\\src\\js\\SurveyWebApp\\SurveyWebApp\\Controllers\\SurveyController.cs",
+              "RelativeDocumentMoniker": "SurveyWebApp\\Controllers\\SurveyController.cs",
+              "ToolTip": "C:\\Users\\olegs\\source\\repos\\edu-db-cw-group1SkomorohaLab6\\src\\js\\SurveyWebApp\\SurveyWebApp\\Controllers\\SurveyController.cs",
+              "RelativeToolTip": "SurveyWebApp\\Controllers\\SurveyController.cs",
+              "ViewState": "AQIAAEMAAAAAAAAAAAAkwFIAAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T13:48:57.426Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AddSurveyModel.cs",
+              "DocumentMoniker": "C:\\Users\\olegs\\source\\repos\\edu-db-cw-group1SkomorohaLab6\\src\\js\\SurveyWebApp\\SurveyWebApp\\Models\\AddSurveyModel.cs",
+              "RelativeDocumentMoniker": "SurveyWebApp\\Models\\AddSurveyModel.cs",
+              "ToolTip": "C:\\Users\\olegs\\source\\repos\\edu-db-cw-group1SkomorohaLab6\\src\\js\\SurveyWebApp\\SurveyWebApp\\Models\\AddSurveyModel.cs",
+              "RelativeToolTip": "SurveyWebApp\\Models\\AddSurveyModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-23T12:16:25.097Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1187,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

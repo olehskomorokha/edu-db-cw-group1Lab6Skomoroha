@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "MDdOMCnXyAlAgR0P2fh6ymp0HHfE1HFCDUgDS30ZoWU=",
+  "Source": "SurveyWebApp",
+  "BasePath": "_content/SurveyWebApp",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
